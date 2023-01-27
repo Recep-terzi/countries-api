@@ -90,8 +90,9 @@
 
 #main-section .main-card {
   margin-top: 50px;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 100px;
 }
 #main-section .main-card .card {

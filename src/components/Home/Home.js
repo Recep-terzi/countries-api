@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdOutlineDarkMode } from "react-icons/md";
+import { useParams, Link } from "react-router-dom";
 import "./Home.Module.css";
 const Home = () => {
   const [data, setData] = useState();
@@ -29,7 +30,7 @@ const Home = () => {
       .get(`https://restcountries.com/v3.1/region/${selectRegion}`)
       .then((res) => setData(res.data));
   }, [selectRegion]);
-
+  console.log(data);
   const modeClick = () => {
     setMode(!mode);
     if (!mode) {
@@ -82,7 +83,10 @@ const Home = () => {
           <>
             <div className="main-card">
               {data.map((list) => (
-                <div className={mode ? "darkMode-card" : "card"}>
+                <Link
+                  to={`/detail/${list.cca2}`}
+                  className={mode ? "darkMode-card" : "card"}
+                >
                   <div className="card-image">
                     <img src={list.flags.svg} alt="" />
                   </div>
@@ -102,7 +106,7 @@ const Home = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </>
