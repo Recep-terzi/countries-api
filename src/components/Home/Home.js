@@ -1,15 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MdOutlineDarkMode } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+import { setMode } from "../../redux/countriesSlice";
+import Navbar from "../Navbar/Navbar";
 import "./Home.Module.css";
 const Home = () => {
   const [data, setData] = useState();
   const [search, setSearch] = useState();
   const [data2, setData2] = useState();
   const [selectRegion, setSelectRegion] = useState();
-  const [mode, setMode] = useState(false);
-
+  const mode = useSelector((state) => state.countries.modeSetting);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -30,28 +32,10 @@ const Home = () => {
       .get(`https://restcountries.com/v3.1/region/${selectRegion}`)
       .then((res) => setData(res.data));
   }, [selectRegion]);
-  console.log(data);
-  const modeClick = () => {
-    setMode(!mode);
-    if (!mode) {
-      document.body.style.backgroundColor = "#202d36";
-      document.body.style.transition = "500ms background-color";
-    } else {
-      document.body.style.backgroundColor = "#e2e2e264";
-      document.body.style.transition = "500ms background-color";
-    }
-  };
+
   return (
     <>
-      <navbar id={mode ? "darkMode-navbar-section" : "navbar-section"}>
-        <div className="container">
-          <div className="navbar-logo">Where in the world?</div>
-          <div className="navbar-button" onClick={() => modeClick()}>
-            <MdOutlineDarkMode />
-            Dark Mode
-          </div>
-        </div>
-      </navbar>
+      <Navbar />
       <main id="main-section">
         <div className="main-top">
           <input
