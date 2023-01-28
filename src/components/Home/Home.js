@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
-import { setMode } from "../../redux/countriesSlice";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Home.Module.css";
 const Home = () => {
@@ -11,7 +10,6 @@ const Home = () => {
   const [data2, setData2] = useState();
   const [selectRegion, setSelectRegion] = useState();
   const mode = useSelector((state) => state.countries.modeSetting);
-  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
